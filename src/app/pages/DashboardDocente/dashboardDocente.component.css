@@ -1,0 +1,75 @@
+.wrapper {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 1rem;
+}
+
+.prenotazione-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f4f4f4;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.2s ease;
+}
+
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.prenotazione-id {
+  font-weight: bold;
+  color: #b80d0d;
+  cursor: default;
+}
+
+.tooltip-box {
+  visibility: hidden;
+  width: 200px;
+  background-color: #ffffff;
+  color: #000;
+  text-align: left;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  position: absolute;
+  z-index: 1;
+  top: 100%; /* Sotto il testo */
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-wrapper:hover .tooltip-box {
+  visibility: visible;
+  opacity: 1;
+}
+
+.accept-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.accept-button:hover {
+  background-color: #218838;
+}
+
+.guida-highlight {
+  outline: 3px solid #d8be12;
+  box-shadow: 0 0 10px #000000;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  z-index: 9998;
+  position: relative;
+}

@@ -1,0 +1,10 @@
+<div class="guida-overlay" *ngIf="guidaStep >= 0">
+  <div class="guida-box">
+    <p>{{ messaggiGuida[guidaStep] }}</p>
+    <div class="guida-actions">
+      <button (click)="avanti()">Avanti</button>
+      <button (click)="saltaGuida()">Salta</button>
+    </div>
+  </div>
+</div>
+

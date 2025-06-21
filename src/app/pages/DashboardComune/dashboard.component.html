@@ -1,0 +1,176 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+</head>
+<app-guida
+  [(guidaStep)]="guidaStep"
+   [ruolo]="ruolo"></app-guida>
+<body>
+<div class="unical-top-bar">
+  <div class="logo-section">
+    <img class="unical-logo" src="https://unical.esse3.cineca.it/img/layout/logo.png?v=24.06.00" alt="Logo UNICAL">
+  </div>
+  <button (click)="openSidebar()" id="openSidebarButton" class="menu-toggle-button">
+    <i class="fas fa-home" [ngClass]="{ 'guida-highlight': guidaStep === 5 }"></i></button>
+</div>
+<div class="overlay" [class.visible]="isSidebarOpen" (click)="closeSidebar()"></div>
+<div class="right-slide-sidebar" [class.open]="isSidebarOpen">
+  <h3>Benvenuto</h3>
+  <div *ngIf="currentUser">
+    <p>Username: <strong>{{ currentUser.username }}</strong></p>
+    <p>Ruolo: <strong>{{ currentUser.ruolo }}</strong></p>
+    <button (click)="onSettings()" class="logout-button">
+      <i class="fas fa-gear"></i> Modifica
+    </button>
+    <div id="myModal" class="modal" *ngIf="mostraImpostazione">
+      <div class="modal-content">
+        <button class="close-button" (click)="offSettings()">&times;</button>
+        <h3>Modifica Email e Password</h3>
+        <form id="profileForm">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" [(ngModel)]="nuovaEmail" required>
+          <label for="password">Nuova Password:</label>
+          <input type="password" id="password" name="password" [(ngModel)]="nuovaPassword" required>
+          <label for="confirmPassword">Conferma Nuova Password:</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confermaPassword" required>
+          <div align="center">
+            <br>
+          <button type="submit" (click)="submit()">Salva Modifiche</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br>
+    <button (click)="onLogout()" class="logout-button">
+      <i class="fas fa-right-from-bracket"></i> Logout
+    </button>
+  </div>
+</div>
+<div class="layout-container">
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="top-bar">
+        <button (click)="loadAuleLibere()" [ngClass]="{ 'guida-highlight': guidaStep === 0 }">Mostra Aule Libere</button>
+      </div>
+      <div id="results-container" class="results-container" [class.hidden]="auleLibere.length === 0" [ngClass]="{ 'guida-highlight': guidaStep === 1 }">
+        <div *ngFor="let aula of auleLibere" class="result-item" (click)="selectAula(aula)"
+             [class.selected]="selectedAula?.id === aula.id">
+          Aula {{ aula.cubo }}
+        </div>
+        <div *ngIf="auleLibere.length === 0 ">Nessuna aula libera trovata.</div>
+      </div>
+      <div class="bottom-section">
+        <div id="details-container" class="details-container" >
+          <div *ngIf="selectedAula">
+            <h3>Dettagli Aula</h3>
+            <p> ID: {{ selectedAula.id }} </p>
+            <p>Nome: {{ selectedAula.cubo }}</p>
+            <p>Laboratorio: {{ selectedAula.laboratorio ? 'Sì' : 'No' }}</p>
+            <p>Posti Disponibili: {{ selectedAula.numeroPosti }}</p>
+            <p>Contenuti:</p>
+            <ul *ngIf="selectedAula.contenuti && selectedAula.contenuti.length > 0">
+              <li *ngFor="let contenuto of selectedAula.contenuti">
+                {{ contenuto.nome }}
+              </li>
+            </ul>
+            <p>piano: {{ selectedAula.piano }}</p>
+            <div *ngIf="selectedAula.responsabile">
+              <p>responsabile: {{ selectedAula.responsabile}}</p>
+            </div>
+          </div>
+          <div *ngIf="!selectedAula">
+            Seleziona un'aula libera per visualizzare i dettagli.
+          </div>
+        </div>
+        <div *ngIf="ruolo === ROLE_STUDENTE">
+          <app-dashboardStudente
+            [guidaStep]="guidaStep"
+            [prenotazioni]="prenotazioni"
+            [selectedAula]="selectedAula"
+            (selectedAulaChange)="selectedAula = $event"
+            [headers]="headers"
+            [currentUser]="currentUser"
+            [userSubscription]="userSubscription"
+             ></app-dashboardStudente>
+        </div>
+        <div *ngIf="ruolo === ROLE_DOCENTE">
+          <app-dashboardDocente
+            [selectedAula]="selectedAula"
+            [headers]="headers"
+            [currentUser]="currentUser"
+            [guidaStep]="guidaStep"
+            [userSubscription]="userSubscription">
+          </app-dashboardDocente>
+        </div>
+      </div>
+      <div class="bottom-section">
+        <div id="booking-container" class="booking-container" *ngIf="selectedAula">
+          <button id="openModalBtn" (click)="mostraForm = true" [ngClass]="{ 'guida-highlight': guidaStep === 2}">Prenota</button>
+        </div>
+        <div class="modal" *ngIf="mostraForm">
+          <div class="modal-content">
+            <span class="close-button" (click)="mostraForm = false">&times;</span>
+            <h3>Inserisci i Dati della Prenotazione</h3>
+            <form (ngSubmit)="prenotaConDurata()">
+              <label for="dataPrenotazione">Data Prenotazione:</label>
+              <input type="datetime-local" id="dataPrenotazione" name="dataPrenotazione"
+                     [(ngModel)]="dataPrenotazione" required>
+              <label for="durata">Durata:</label>
+              <input type="time" id="durata" name="durata" [(ngModel)]="durataPrenotazione" required>
+              <br><br>
+              <button type="submit" class="save-note-btn">Conferma Prenotazione</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="side-panel-v2">
+    <div class="panel-header">
+      <button
+        class="panel-tab-btn"
+        [class.active]="vistaAttiva === 'feedback'"
+        (click)="cambiaVista('feedback')" [ngClass]="{ 'guida-highlight': guidaStep === 3 }">
+        <i class="fas fa-comment-alt"></i>
+        <span>Feedback</span>
+      </button>
+      <button
+        class="panel-tab-btn"
+        [class.active]="vistaAttiva === 'prenotazioni'"
+        (click)="cambiaVista('prenotazioni')" [ngClass]="{ 'guida-highlight': guidaStep === 4 }">
+        <i class="fas fa-calendar-check"></i>
+        <span>Le Mie Prenotazioni</span>
+        <span *ngIf="miePrenotazioni.length > 0" class="badge-v2">{{ miePrenotazioni.length }}</span>
+      </button>
+    </div>
+    <div class="panel-body">
+      <div class="panel-content" [class.active]="vistaAttiva === 'feedback'">
+        <textarea placeholder="Scrivi un feedback..." class="note-area" [(ngModel)]="feedback.feedback"></textarea>
+        <button class="save-note-btn" (click)="inserisciFeedback()"><i class="fas fa-paper-plane"></i> Invia</button>
+      </div>
+      <div class="panel-content" [class.active]="vistaAttiva === 'prenotazioni'">
+        <div *ngIf="miePrenotazioni.length === 0" class="elemento-vuoto">
+          <i class="far fa-calendar-times"></i>
+          <p>Non hai prenotazioni attive.</p>
+        </div>
+        <div *ngIf="miePrenotazioni.length > 0" class="card-list-wrapper">
+          <div *ngFor="let p of miePrenotazioni" class="prenotazione-card-v2" (mouseleave)="annullaConferma()">
+            <div class="card-info">
+              <strong class="card-info-titolo">{{ p.id }}</strong>
+              <span class="card-info-dettaglio">
+              {{ p.dataPrenotazione | date: 'EEEE, d MMM' }} • {{ p.dataPrenotazione | date: 'HH:mm' }}
+            </span>
+            </div>
+            <button class="btn-cancella-v2"
+                    [class.conferma-attiva]="prenotazioneDaConfermare === p.id"
+                    (click)="onDeletePrenotazione(p.id)">
+              <i class="fas" [ngClass]="{'fa-times': prenotazioneDaConfermare !== p.id, 'fa-exclamation-triangle': prenotazioneDaConfermare === p.id}"></i>
+              <span *ngIf="prenotazioneDaConfermare === p.id" class="testo-conferma">Sicuro?</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+

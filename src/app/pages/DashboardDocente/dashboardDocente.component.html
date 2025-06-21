@@ -1,0 +1,28 @@
+<div class="wrapper">
+  <div class="side-box">
+    <br>
+    <button (click)="controllaPrenotazioni()" [ngClass]="{ 'guida-highlight': guidaStep === 6 }">Controlla Prenotazioni</button>
+
+    <div *ngIf="daAccettare">
+      <div
+        *ngFor="let prenotazione of daAccettare"
+        class="prenotazione-card">
+        <div class="tooltip-wrapper">
+          <span class="prenotazione-id">
+            ID: {{ prenotazione.id }}
+          </span>
+          <div class="tooltip-box" [ngClass]="{ 'guida-highlight': guidaStep === 7 }">
+            <p><strong>ID:</strong> {{ prenotazione.id }}</p>
+            <p><strong>Data:</strong> {{ prenotazione.dataPrenotazione }}</p>
+            <p><strong>Lab:</strong> {{ prenotazione.idlaboratorio }}</p>
+            <p><strong>Durata:</strong> {{ prenotazione.durata }}</p>
+            <p><strong>Studente:</strong> {{ prenotazione.idutente }}</p>
+          </div>
+        </div>
+        <button class="accept-button" (click)="accetta(prenotazione.id)">
+          Accetta
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

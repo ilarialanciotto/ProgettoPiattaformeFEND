@@ -1,0 +1,45 @@
+<div class="controls">
+  <div class="azione-container" [ngClass]="{ 'guida-highlight': guidaStep === 7 }">
+    <button class="azione-button entra" [disabled]="!selectedAula" (click)="enterAula()">
+      <span class="material-icons"></span>
+      Entra
+    </button>
+    <label>Codice</label>
+    <input [(ngModel)]="codiceInserito" name="codice" class="form-control" required>
+    <button class="azione-button esci" [disabled]="!selectedAula" (click)="exitAula()">
+      <span class="material-icons"></span>
+      Esci
+    </button>
+  </div>
+  <div class="bacheca">
+    <span class="refresh-icon" (click)="controllaCodice()" [ngClass]="{ 'guida-highlight': guidaStep === 6 }">⟳</span>
+    <div *ngIf="codice" class="code-display">
+      <strong>Codici ricevuti:</strong>
+      <pre>{{ codice }}</pre>
+    </div>
+  </div>
+  <div [ngClass]="{ 'guida-highlight': guidaStep === 8 }">
+    <div *ngIf="prenotazioni && prenotazioni.length > 0" class="prenotazioni-container">
+      <h6 class="titolo-sezione">Prenotazioni</h6>
+      <div class="card-list">
+        <div *ngFor="let p of prenotazioni" class="prenotazione-card">
+          <div class="card-icon">
+            <i class="fa fa-calendar-check"></i>
+          </div>
+          <div class="card-content" >
+            <div class="card-title">Prenotazione : {{ p.id }}</div>
+            <div class="card-details">
+              <span><i class="fa fa-calendar-alt"></i> {{ p.dataPrenotazione }}</span>
+              <span><i class="fa fa-clock"></i> Ore: {{ p.oraPrenotazione }}</span>
+              <span><i class="fa fa-hourglass-half"></i> Durata: {{ p.durata }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!prenotazioni || prenotazioni.length === 0" class="nessuna-prenotazione">
+      <i class="fa fa-info-circle"></i>
+      <p>Nessuna prenotazione al momento.</p>
+    </div>
+  </div>
+</div>

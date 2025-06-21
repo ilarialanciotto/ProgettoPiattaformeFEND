@@ -1,0 +1,32 @@
+<header class="masthead">
+  <div class="l-container">
+    <div class="masthead_top" aria-hidden="true">
+      <a class="masthead_logo" title="Home page" href="#"><img aria-hidden="true" alt="Logo ateneo" src="assets/logo.png" id="theme-logo"></a>
+    </div>
+  </div>
+</header>
+<div class="register-container">
+  <h2>Registrazione</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label>Nome</label>
+      <input class="form-control" [(ngModel)]="utente.nome" name="nome" required>
+    </div>
+    <div class="mb-3">
+      <label>Email</label>
+      <input class="form-control" type="email" [(ngModel)]="utente.email" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label>Password</label>
+      <input class="form-control" type="password" [(ngModel)]="utente.password" name="password" required>
+    </div>
+    <div class="mb-3">
+      <label>Codice Docente (opzionale)</label>
+      <input class="form-control" [(ngModel)]="utente.codiceDocente" name="codiceDocente">
+    </div>
+    <button class="btn btn-primary">Registrati</button>
+    <p class="mt-3 text-success" *ngIf="success">{{ success }}</p>
+    <p class="mt-3 text-danger" *ngIf="error">{{ error }}</p>
+  </form>
+</div>
+
