@@ -1,4 +1,4 @@
 export interface LoggedInUser {
   username: string;
-  ruolo: string;
+  role: string;
 }

@@ -1,0 +1,123 @@
+.wrapper {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 1rem;
+}
+
+.guide-highlight {
+  outline: 3px solid #d8be12;
+  box-shadow: 0 0 10px #000000;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  z-index: 9998;
+  position: relative;
+}
+
+.btn-load-classroom {
+  background: linear-gradient(to right, #b80d0d, rgba(207, 17, 17, 0.5));
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-load-classroom:hover {
+  background: linear-gradient(to right, #b80d0d, rgba(207, 17, 17, 0.5));
+}
+
+/* Sidebar (drawer) */
+.classroom-drawer {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 350px;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+  overflow-y: auto;
+  transition: right 0.3s ease;
+  z-index: 1002;
+  padding: 20px;
+}
+
+.classroom-drawer.open {
+  right: 0;
+}
+
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 1001;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.drawer-header h3 {
+  margin: 0;
+  color: #b80d0d;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.classroom-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  transition: box-shadow 0.3s;
+}
+
+.classroom-card.selected {
+  background-color: #e9fcef;
+  border-color: #28a745;
+}
+
+.classroom-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.classroom-card input[type="checkbox"] {
+  margin-right: 12px;
+  transform: scale(1.3);
+  margin-top: 5px;
+}
+
+.classroom-info h4 {
+  margin: 0;
+  color: #b80d0d;
+}
+
+.classroom-info p {
+  margin: 3px 0;
+  font-size: 14px;
+}
+
+.no-classroom-msg {
+  font-style: italic;
+  color: #888;
+}
+
+

@@ -1,26 +1,33 @@
-import {RouterModule, Routes} from '@angular/router';
-import { LoginComponent } from './pages/DashboardComune/login/login.component';
-import { RegisterComponent } from './pages/DashboardComune/register/register.component';
-import {HomeComponent} from './pages/DashboardComune/home/home.components';
-import { AuthGuard } from './services/auth.guard';
-import {DashboardComponent} from './pages/DashboardComune/dashboard.component';
-import {HeaderComponent} from './pages/DashboardComune/header-logo/header.component';
-import {DashboardDocente} from './pages/DashboardDocente/dashboardDocente.component';
-import {DashboardStudente} from './pages/DashboardStudente/DashboardStudente.component';
-import {GuidaComponent} from './pages/DashboardComune/header-logo/guida.component';
+import {Routes} from '@angular/router';
+import {HomeComponent} from './pages/DashboardShared/home/home.components';
+import {LoginComponent} from './pages/DashboardShared/login/login.component';
+import {HeaderComponent} from './pages/DashboardShared/header-logo/header.component';
+import {LogoComponent} from './pages/DashboardShared/header-logo/logo.component';
+import {GuideComponent} from './pages/DashboardShared/header-logo/guide.component';
+import {DashboardComponent} from './pages/DashboardShared/dashboard.component';
+import {AuthGuard} from './services/auth.guard';
+import {DashboardTeacher} from './pages/DashboardAdmin/DashboardTeacher/dashboardTeacher.component';
+import {DashboardAdmin} from './pages/DashboardAdmin/dashboardAdmin.component';
+import {DashboardStudent} from './pages/DashboardStudent/DashboardStudent.component';
+import {RegisterComponent} from './pages/DashboardShared/register/register.component';
+
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'header', component: HeaderComponent},
-  { path: 'guida', component: GuidaComponent},
+  { path: 'logo', component: LogoComponent},
+  { path: 'guide', component: GuideComponent},
   { path: 'dashboard', component: DashboardComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'dashboardDocente', component: DashboardDocente,
+  { path: 'dashboardTeacher', component: DashboardTeacher,
     canActivate: [AuthGuard]
   },
-  { path: 'dashboardStudente', component: DashboardStudente,
+  { path: 'dashboardAdmin', component: DashboardAdmin,
+    canActivate: [AuthGuard]
+  },
+  { path: 'dashboardStudent', component: DashboardStudent,
     canActivate: [AuthGuard]
   },
   { path: 'register', component: RegisterComponent }

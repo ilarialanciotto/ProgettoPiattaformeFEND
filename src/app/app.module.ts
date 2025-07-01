@@ -4,31 +4,36 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {AppComponent} from './app.component';
 import {NgModule} from '@angular/core';
-import {LoginComponent} from './pages/DashboardComune/login/login.component';
-import {RegisterComponent} from './pages/DashboardComune/register/register.component';
-import {HomeComponent} from './pages/DashboardComune/home/home.components';
 import {routes} from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import {AuthGuard} from './services/auth.guard';
 import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HeaderComponent} from './pages/DashboardComune/header-logo/header.component';
-import {DashboardDocente} from './pages/DashboardDocente/dashboardDocente.component';
-import {DashboardComponent} from './pages/DashboardComune/dashboard.component';
-import {DashboardStudente} from './pages/DashboardStudente/DashboardStudente.component';
-import {GuidaComponent} from './pages/DashboardComune/header-logo/guida.component';
+import {HomeComponent} from './pages/DashboardShared/home/home.components';
+import {LoginComponent} from './pages/DashboardShared/login/login.component';
+import {RegisterComponent} from './pages/DashboardShared/register/register.component';
+import {DashboardComponent} from './pages/DashboardShared/dashboard.component';
+import {HeaderComponent} from './pages/DashboardShared/header-logo/header.component';
+import {LogoComponent} from './pages/DashboardShared/header-logo/logo.component';
+import {DashboardTeacher} from './pages/DashboardAdmin/DashboardTeacher/dashboardTeacher.component';
+import {DashboardStudent} from './pages/DashboardStudent/DashboardStudent.component';
+import {DashboardAdmin} from './pages/DashboardAdmin/dashboardAdmin.component';
+import {GuideComponent} from './pages/DashboardShared/header-logo/guide.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    GuidaComponent,
+    GuideComponent,
     HomeComponent,
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
     HeaderComponent,
-    DashboardDocente,
-    DashboardStudente
+    LogoComponent,
+    DashboardTeacher,
+    DashboardStudent,
+    DashboardAdmin
   ],
   imports: [
     BrowserModule,

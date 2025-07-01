@@ -1,0 +1,45 @@
+<div class="wrapper">
+  <div class="side-box">
+    <br>
+    <app-dashboardAdmin
+      [selectedAula]="selectedAula"
+      [headers]="headers"
+      [currentUser]="currentUser"
+      [guideStep]="guideStep"
+      [userSubscription]="userSubscription">
+    </app-dashboardAdmin>
+  <div class="menu-laboratory-admin">
+    <button class="btn-load-classroom" (click)="classroomListAdmin()" [ngClass]="{ 'guide-highlight': guideStep === 8 }">
+      Selected Laboratory
+    </button>
+  </div>
+  <div class="classroom-drawer" [class.open]="drawerOpen">
+    <div class="drawer-header">
+      <h3>Laboratory Admin</h3>
+      <button class="close-btn" (click)="CloseDrawer()">×</button>
+    </div>
+    <div class="drawer-content">
+      <div *ngIf="adminClassroom.length > 0; else noClassroom">
+        <div *ngFor="let classroom of adminClassroom" class="classroom-card" [class.selected]="selectedClassrooms.includes(classroom)" (click)="toggleClassroom(classroom)">
+          <input
+            type="checkbox"
+            [checked]="selectedClassrooms.includes(classroom)"
+            (click)="$event.stopPropagation()"
+            (change)="toggleClassroom(classroom)"
+          />
+          <div class="classroom-info">
+            <h4>{{ classroom.cube }}</h4>
+            <p><strong>ID:</strong> {{ classroom.id }}</p>
+            <p><strong>Number of seats:</strong> {{ classroom.numberOfSeats || 'N/D' }}</p>
+            <p><strong>Type:</strong> {{ classroom.laboratory || 'Not specified' }}</p>
+          </div>
+        </div>
+      </div>
+      <ng-template #noClassroom>
+        <p class="no-classroom-msg">No laboratory found</p>
+      </ng-template>
+    </div>
+  </div>
+  <div class="drawer-overlay" *ngIf="drawerOpen" (click)="CloseDrawer()"></div>
+  </div>
+</div>
